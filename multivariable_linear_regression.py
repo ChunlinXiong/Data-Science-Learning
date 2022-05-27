@@ -44,13 +44,27 @@ print(list(zip(feature_cols,linreg.coef_)))
 #用模型预测
 y_pred = linreg.predict(X_test)
 
+
 #评价
 #平均绝对误差（Mean Absolute Error, MAE）
 #均方误差（Mean Squared Error, MSE）
 #均方根误差（Root Mean Squared Error, RMSE）
-
 from sklearn import metrics
 import numpy as np
 sum_mean = 0
 for i in range(len(y_pred)):
-    sum_mean = 
+    sum_mean += (y_pred[i] - y_test.values[i])**2
+sum_error = np.sqrt(sum_mean/50)
+#计算RMSE
+print ("RMSE by hand:", sum_error)
+
+#画ROC曲线
+plt.figure()
+#plt.scatter(range(len(y_pred)),y_pred,color='blue')
+#plt.scatter(range(len(y_pred)),y_test,color='red')
+plt.plot(range(len(y_pred)),y_pred,'b',label='predict')
+plt.plot(range(len(y_pred)),y_test,'r',label='test')
+#plt.legend(loc='uppger right')        #显示图中的标签
+plt.xlabel("The number of sales")
+plt.ylabel('Value of sales')
+plt.show()
